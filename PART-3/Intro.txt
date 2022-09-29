@@ -1,0 +1,33 @@
+In PART-3, we will create a binaural-vocoded signal following the block diagram in this folder. I used 2 types of vocoder, which is CIS and SPEAK, with a variation of channel ranging from 2 to 22. I will explain how to create a vocoded signal with CIS vocoder first.
+
+1. Let's say we wanna use CIS 6 channel vocoder. Open cis folder and create a folder named 6_channel.
+
+2. Create the filename for left, right, and binaural-vocoded signal by running create_filename.m in this folder, be careful while adjusting the configurations. After you create the filename, open it and make sure it is customized properly.
+
+3. Open cisim.m in Tools_cisim folder, scroll down to line 98. There will be code like this:
+	dt1=[w(1,:)/pi;20*log10(abs(h(1,:)))];
+If we use CIS 6 channel, we should only use dt1 until dt6, so add % for dt7 to dt22.
+
+Next, scroll down to line 122. There will be code like this:
+plot(w(1,:)/pi,20*log10(abs(h(1,:))),w(2,:)/pi,20*log10(abs(h(2,:))),...
+
+For 6 channel, use 3 row (line 122 to 124). See that it ended with
+	abs(h(6,:))));
+Make sure the last row (line 124) has 4 brackets and semicolon.
+ 
+What if we want to use 8 channel?
+Use dt1 to dt8, and 4 row for plotting (line 122 to 125).
+ 
+4. Run vocoding.m, and adjust the vocoder configurations. In CIS vocoder, n channel = m channel. When it finished running, you will see a plot. See that there is 6 plot in the figure, it follows the number of channel you used.
+
+================
+
+For SPEAK vocoder, step 1 and 2 is the same, just change CIS to SPEAK.
+In SPEAK vocoder, n channel always 22. Since the configurations in 3rd step follows the n channel, and the n channel in SPEAK is alywas 22, so use dt1 to dt22, and 11 row for plotting (line 122 to 132, ended with abs(h(22,:))));) for all channel variations.
+In the 4th step, remember that n channel always 22, so just change the m channel.
+
+================
+
+Just like in PART-2, the extracted spatial cues are stored in itd_all and ild_all. You can copy this data to your excel, compare it to the result in the previous part, and see how spatial cues in CI differ from normal hearing.
+
+Additionally, we also extracted the objective intelligibility (MBSTOI), it is stored in mbstoi_all. You can copy this data to your excel and compare how the intelligibility change over channels.
