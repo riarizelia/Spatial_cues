@@ -1,0 +1,37 @@
+In PART-1 we create a spatialized signal, but only for 1 angle.
+If we wanna create in all 360 angle with that code, it would be too time consuming.
+So in PART-2 I will explain how to create it with less effort.
+
+========================
+
+First, run create_filename.m
+
+Normally, when we wanna save the created audio in wav format, and we type like this (just as in PART-1):
+filename = 'clean_90.wav';
+audiowrite(filename, bi, fs);
+The created audio will be saved in the folder where the code was.
+
+It's not wrong, but when we created so many audio, and we want to automatically organize it in one folder, we should do it this way:
+filename = 'E:\TUGAS AKHIR\SC\OB-NH\PART-2\clean\clean_90.wav';
+audiowrite(filename, bi, fs);
+
+Therefore, nh_filename.m create a list of filenames along with its directory.
+
+Previously in PART-1 we only saved the binaural signal, but in PART-2 we need to saved the left, right, and binaural signal. I will explain further in the next part. Just make sure to create txt filename for left, right, and binaural signal.
+
+========================
+
+Second, create a list of azimuth angle, we need it to load HRIR
+Run this in command window:
+
+fid = fopen('E:\TUGAS AKHIR\SC\PART-2\angle.txt', 'w');
+angle = string(5:5:360);
+fprintf(fid, '%s\r\n', angle);
+fclose(fid);
+
+========================
+
+Third, run spatialize_signal
+If you wanna check the extracted spatial cues (ITD and ILD), click itd_all and ild_all in the workspace. There will be 72 data for 72 angles. The first row is the data for 5 degrees, the second row for 10 degrees, and so on. It follows the order of angle in the angle.txt. You can copy this data to your excel, make a plot of spatial cues vs angle, and see how these cues change over angle.
+
+Voila! It's done!
